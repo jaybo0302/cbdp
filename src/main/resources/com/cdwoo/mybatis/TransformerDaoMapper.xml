@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+		<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cdwoo.dao.TransformerDao">
+	<insert id="addTransformer">
+		insert into c_transformer (name,department,type,address,status) value (#{name},#{department},#{type},#{address},1)
+	</insert>
+	
+	<select id="queryTransformerByPage" resultType="java.util.Map">
+		select * from c_transformer where status =1
+		<if test="name != null and name != ''">
+		    and name like '%${name}%' 
+		</if>
+		<if test="address != null and address != ''">
+		    and address like '%${address}%' 
+		</if>
+		limit ${pageSize} offset ${pageNo*pageSize-pageSize};
+	</select>
+	
+	<select id="deleteTransformer">
+	    update c_transformer set status = 4 where id = ${id}
+	</select>
+	
+	<select id="queryTransformerCount" resultType="java.lang.Long">
+	    select count(*) from c_transformer where status =1
+	    <if test="name != null and name != ''">
+		    and name like '%${name}%' 
+		</if>
+		<if test="address != null and address != ''">
+		    and address like '%${address}%' 
+		</if>;
+	</select>
+	
+	<select id="getTransformerById" resultType="com.cdwoo.entity.Transformer">
+	    select * from c_transformer where id = ${id}
+	</select>
+	
+	<update id="editTransformer">
+	    update c_transformer set name = #{name},department=#{department},type=#{type},
+	    address=#{address} where id = ${id}
+	</update>
+</mapper>
