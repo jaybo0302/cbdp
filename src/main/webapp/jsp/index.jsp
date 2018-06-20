@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page isELIgnored="false" %>
 <!DOCTYPE HTML>
 <html>
@@ -71,38 +72,22 @@
 </header>
 <aside class="Hui-aside">
   <div class="menu_dropdown bk_2" id="menu-content">
-	<dl id="menu-transfarmer">
-		<dt><i class="Hui-iconfont">&#xe616;</i> 变压器<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-		<dd>
-			<ul>
-				<li><a data-href="jsp/transformer_list.jsp" data-title="变压器管理" href="javascript:void(0)">变压器管理</a></li>
-			</ul>
-		</dd>
-	</dl>
-	<dl id="menu-cabinet">
-		<dt><i class="Hui-iconfont">&#xe613;</i> 配电柜<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-		<dd>
-			<ul>
-				<li><a data-href="jsp/cabinet_list.jsp" data-title="配电柜管理" href="javascript:void(0)">配电柜管理</a></li>
-			</ul>
-		</dd>
-	</dl>
-	<dl id="menu-resource">
-		<dt><i class="Hui-iconfont">&#xe613;</i> 资源<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-		<dd>
-			<ul>
-				<li><a data-href="jsp/resources.jsp" data-title="资源管理" href="javascript:void(0)">资源管理</a></li>
-			</ul>
-		</dd>
-	</dl>
-	<dl id="menu-role">
-		<dt><i class="Hui-iconfont">&#xe613;</i> 角色<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-		<dd>
-			<ul>
-				<li><a data-href="jsp/role_list.jsp" data-title="角色管理" href="javascript:void(0)">角色管理</a></li>
-			</ul>
-		</dd>
-	</dl>
+	<c:forEach var="r" begin="1" end="${rs.size()}" items="${rs}" step = "1">
+		<c:if test="${r.pId ==1}">
+			<dl>
+				<dt>${r.name}<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+				<dd>
+					<ul>
+						<c:forEach var="r1" begin="1" end="${rs.size()}" items="${rs}" step = "1">
+							<c:if test="${r1.pId == r.id}">
+								<li><a data-href="${r1.url }" data-title="${ r1.resource}" href="javascript:void(0)">${r1.name }</a></li>
+							</c:if>
+						</c:forEach>
+					</ul>
+				</dd>
+			</dl>
+		</c:if>
+	</c:forEach>
   </div>
 </aside>
 <div class="dislpayArrow hidden-xs"><a class="pngfix" href="javascript:void(0);" onClick="displaynavbar(this)"></a></div>
@@ -159,26 +144,6 @@ function transformer_add(title,url,w,h){
 function member_add(title,url,w,h){
 	layer_show(title,url,w,h);
 }
-
-$(function (){
-	$.get("../resource/getReourcesByRole.do",function(result){
-		var data = result.data;
-		$("#menu-content").empty();
-		var str;
-		for(var i=0;i<data.length;i++) {
-			if (data[i].pId == "1") {
-				str+=("<dl><dt><i class='Hui-iconfont'>&#xe616;</i> 变压器<i class='Hui-iconfont menu_dropdown-arrow'>&#xe6d5;</i></dt><dd><ul>");
-				for (var j =0;j<data.length;j++) {
-					if (data[i].id = data[j].pId) {
-						str+=("<li><a data-href='"+data[j].url+"' data-title='"+data[j].resource+"' href='javascript:void(0)'>"+data[j].name+"</a></li>");
-					}
-				}
-				str+="</ul></dd></dl>";
-			}
-		}
-		$("#menu-content").append(str);
-	});
-});
 </script> 
 </body>
 </html>
