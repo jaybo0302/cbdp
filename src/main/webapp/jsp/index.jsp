@@ -70,7 +70,7 @@
 </div>
 </header>
 <aside class="Hui-aside">
-	<div class="menu_dropdown bk_2">
+  <div class="menu_dropdown bk_2" id="menu-content">
 	<dl id="menu-transfarmer">
 		<dt><i class="Hui-iconfont">&#xe616;</i> 变压器<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 		<dd>
@@ -85,23 +85,25 @@
 			<ul>
 				<li><a data-href="jsp/cabinet_list.jsp" data-title="配电柜管理" href="javascript:void(0)">配电柜管理</a></li>
 			</ul>
-			</dd>
+		</dd>
 	</dl>
-	<dl id="menu-tongji">
-		<dt><i class="Hui-iconfont">&#xe61a;</i> 系统统计<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+	<dl id="menu-resource">
+		<dt><i class="Hui-iconfont">&#xe613;</i> 资源<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 		<dd>
 			<ul>
-				<li><a data-href="jsp/blank.jsp" data-title="折线图" href="javascript:void(0)">折线图</a></li>
-				<li><a data-href="jsp/blank.jsp" data-title="时间轴折线图" href="javascript:void(0)">时间轴折线图</a></li>
-				<li><a data-href="jsp/blank.jsp" data-title="区域图" href="javascript:void(0)">区域图</a></li>
-				<li><a data-href="jsp/blank.jsp" data-title="柱状图" href="javascript:void(0)">柱状图</a></li>
-				<li><a data-href="jsp/blank.jsp" data-title="饼状图" href="javascript:void(0)">饼状图</a></li>
-				<li><a data-href="jsp/blank.jsp" data-title="3D柱状图" href="javascript:void(0)">3D柱状图</a></li>
-				<li><a data-href="jsp/blank.jsp" data-title="3D饼状图" href="javascript:void(0)">3D饼状图</a></li>
+				<li><a data-href="jsp/resources.jsp" data-title="资源管理" href="javascript:void(0)">资源管理</a></li>
 			</ul>
 		</dd>
 	</dl>
-</div>
+	<dl id="menu-role">
+		<dt><i class="Hui-iconfont">&#xe613;</i> 角色<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+		<dd>
+			<ul>
+				<li><a data-href="jsp/role_list.jsp" data-title="角色管理" href="javascript:void(0)">角色管理</a></li>
+			</ul>
+		</dd>
+	</dl>
+  </div>
 </aside>
 <div class="dislpayArrow hidden-xs"><a class="pngfix" href="javascript:void(0);" onClick="displaynavbar(this)"></a></div>
 <section class="Hui-article-box">
@@ -157,6 +159,26 @@ function transformer_add(title,url,w,h){
 function member_add(title,url,w,h){
 	layer_show(title,url,w,h);
 }
+
+$(function (){
+	$.get("../resource/getReourcesByRole.do",function(result){
+		var data = result.data;
+		$("#menu-content").empty();
+		var str;
+		for(var i=0;i<data.length;i++) {
+			if (data[i].pId == "1") {
+				str+=("<dl><dt><i class='Hui-iconfont'>&#xe616;</i> 变压器<i class='Hui-iconfont menu_dropdown-arrow'>&#xe6d5;</i></dt><dd><ul>");
+				for (var j =0;j<data.length;j++) {
+					if (data[i].id = data[j].pId) {
+						str+=("<li><a data-href='"+data[j].url+"' data-title='"+data[j].resource+"' href='javascript:void(0)'>"+data[j].name+"</a></li>");
+					}
+				}
+				str+="</ul></dd></dl>";
+			}
+		}
+		$("#menu-content").append(str);
+	});
+});
 </script> 
 </body>
 </html>

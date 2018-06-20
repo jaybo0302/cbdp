@@ -3,6 +3,9 @@
  */
 package com.cdwoo.service;
 
+import java.util.List;
+import java.util.Map;
+
 import com.cdwoo.entity.Resource;
 
 /**
@@ -22,5 +25,7 @@ public interface ResourceService {
 	boolean checkHaveChild(String id);
 
 	void deleteResource(String id);
+
+	List<Map<String, Object>> getResourcesByRole(String rIds);
 
 }

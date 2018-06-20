@@ -1,8 +1,12 @@
 package com.cdwoo.service;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cdwoo.common.CDResult;
 import com.cdwoo.dao.ResourceDao;
 import com.cdwoo.entity.Resource;
 
@@ -36,6 +40,10 @@ public class ResourceServiceImpl implements ResourceService {
 	@Override
 	public void deleteResource(String id) {
 		resourceDao.deleteResource(id);
+	}
+	@Override
+	public List<Map<String, Object>> getResourcesByRole(String rIds) {
+		return this.resourceDao.getResourcesByRole(rIds);
 	}
 
 }

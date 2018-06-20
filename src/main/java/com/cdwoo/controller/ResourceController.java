@@ -3,6 +3,9 @@
  */
 package com.cdwoo.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +58,9 @@ public class ResourceController {
 	@RequestMapping("addResource")
 	public CDResult addResource(Resource r) {
 		try {
+			if (resourceService.getResourceById(String.valueOf(r.getpId())).getpId() == 1) {
+				return CDResult.fail("暂不允许添加二级以上菜单");
+			}
 			resourceService.addResource(r);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -79,5 +85,13 @@ public class ResourceController {
 			e.printStackTrace();
 			return CDResult.fail("删除失败");
 		}
+	}
+	
+	@ResponseBody
+	@RequestMapping("getResourcesByRole")
+	public CDResult getResourcesByRole() {
+		String rIds = "1,8,10,9,11,12,13,14,15,16,17";
+		List<Map<String, Object>> list = this.resourceService.getResourcesByRole(rIds);
+		return CDResult.success(list);
 	}
 }

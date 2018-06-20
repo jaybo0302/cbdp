@@ -26,4 +26,8 @@
     <select id="checkHaveChild" resultType="java.lang.Long">
         select count(*) from c_resource where pId = ${id} and status =1;
     </select>
+    
+    <select id="getResourcesByRole" resultType="java.util.Map">
+        select * from c_resource where id in (${rIds});
+    </select>
 </mapper>

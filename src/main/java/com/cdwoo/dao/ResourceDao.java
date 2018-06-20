@@ -21,4 +21,6 @@ public interface ResourceDao {
 
 	long checkHaveChild(@Param("id") String id);
 
+	List<Map<String, Object>> getResourcesByRole(@Param("rIds")String rIds);
+
 }
