@@ -127,7 +127,7 @@ $("#form-role-edit").validate({
 			data:{rIds:rIds},
 			success:function(data){
 				if (data.success){
-					alert("添加成功");
+					alert("修改成功");
 					parent.location.reload();
 					var index = parent.layer.getFrameIndex(window.name);
 	        		parent.layer.close(index);

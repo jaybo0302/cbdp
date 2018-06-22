@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+		<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cdwoo.dao.UserDao">
+    <select id="queryUserByPage" resultType="java.util.Map">
+        select *,date_format(createTime, '%Y-%m-%d %H:%i:%s') createTimeStr from c_user where status = 1 limit ${pageSize} offset ${pageNo*pageSize-pageSize};
+    </select>
+    
+    <select id="queryUserCount" resultType="java.lang.Long">
+	    select count(*) from c_user where status =1;
+	</select>
+	
+    <select id="getUserById" resultType="com.cdwoo.entity.User">
+        select *,date_format(createTime, '%Y-%m-%d %H:%i:%s') createTimeStr from c_user where id = ${id};
+    </select>
+    
+    <insert id="addUser">
+        insert into c_user (userName,realName,email,password,createTime,status,roleId) value (#{userName},#{realName},#{email},#{password},now(),1,${roleId});
+    </insert>
+    
+    <update id="editUser">
+        update c_user set userName=#{userName},realName=#{realName},email=#{email},password=#{password},roleId = ${roleId} where id = ${id}
+    </update>
+</mapper>

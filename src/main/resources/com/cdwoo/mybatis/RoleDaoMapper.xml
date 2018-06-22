@@ -21,4 +21,8 @@
     <update id="editRole">
         update c_role set role=#{role},roleName=#{roleName}, description=#{description},rIds=#{rIds} where id = ${id};
     </update>
+    
+    <select id= "getRole" resultType="java.util.Map">
+        select * from c_role where status = 1;
+    </select>
 </mapper>

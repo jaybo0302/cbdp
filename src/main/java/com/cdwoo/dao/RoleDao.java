@@ -1,6 +1,7 @@
 package com.cdwoo.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -13,4 +14,5 @@ public interface RoleDao {
 	void addRole(Role role);
 	Role getRoleById(@Param("id")String id);
 	void editRole(Role role);
+	List<Map<String, Object>> getRole();
 }

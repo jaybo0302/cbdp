@@ -1,6 +1,7 @@
 package com.cdwoo.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,6 +36,10 @@ public class RoleServiceImpl implements RoleService {
 	@Override
 	public void editRole(Role role) {
 		this.roleDao.editRole(role);
+	}
+	@Override
+	public List<Map<String, Object>> getRole() {
+		return this.roleDao.getRole();
 	}
 
 }

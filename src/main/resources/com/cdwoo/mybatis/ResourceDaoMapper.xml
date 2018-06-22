@@ -28,6 +28,6 @@
     </select>
     
     <select id="getResourcesByRole" resultType="java.util.Map">
-        select * from c_resource where id in (${rIds});
+        select * from c_resource where id in (${rIds}) and status = 1;
     </select>
 </mapper>

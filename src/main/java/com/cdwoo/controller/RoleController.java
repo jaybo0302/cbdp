@@ -1,5 +1,8 @@
 package com.cdwoo.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.annotations.Param;
@@ -56,6 +59,18 @@ public class RoleController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return CDResult.fail("修改失败");
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping("getRole")
+	public CDResult getRole() {
+		try {
+			List<Map<String, Object>> result = this.roleService.getRole();
+			return CDResult.success(result);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return CDResult.fail("获取角色失败");
 		}
 	}
 }

@@ -58,7 +58,7 @@ public class ResourceController {
 	@RequestMapping("addResource")
 	public CDResult addResource(Resource r) {
 		try {
-			if (resourceService.getResourceById(String.valueOf(r.getpId())).getpId() == 1) {
+			if (resourceService.getResourceById(String.valueOf(r.getpId())).getpId() > 1) {
 				return CDResult.fail("暂不允许添加二级以上菜单");
 			}
 			resourceService.addResource(r);
