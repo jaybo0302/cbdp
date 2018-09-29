@@ -15,4 +15,6 @@ public interface RoleDao {
 	Role getRoleById(@Param("id")String id);
 	void editRole(Role role);
 	List<Map<String, Object>> getRole();
+	long getCurrentRoleCount(@Param("id")String id);
+	void deleteRole(@Param("id")String id);
 }

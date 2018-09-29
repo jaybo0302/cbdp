@@ -25,4 +25,13 @@
     <select id= "getRole" resultType="java.util.Map">
         select * from c_role where status = 1;
     </select>
+    
+        
+    <select id="getCurrentRoleCount" resultType="java.lang.Long">
+        select count(*) from c_user where roleId = ${id};
+    </select>
+    
+    <delete id="deleteRole">
+        delete from c_role where id = ${id};
+    </delete>
 </mapper>

@@ -41,5 +41,13 @@ public class RoleServiceImpl implements RoleService {
 	public List<Map<String, Object>> getRole() {
 		return this.roleDao.getRole();
 	}
-
+	@Override
+	public long getCurrentRoleCount(String id) {
+		
+		return this.roleDao.getCurrentRoleCount(id);
+	}
+	@Override
+	public void deleteRole(String id) {
+		this.roleDao.deleteRole(id);
+	}
 }

@@ -73,4 +73,21 @@ public class RoleController {
 			return CDResult.fail("获取角色失败");
 		}
 	}
+	
+	@ResponseBody
+	@RequestMapping("deleteRole")
+	public CDResult deleteRole(@RequestParam("id")String id) {
+		try {
+			//首先查看是否有用户属于该角色
+			long total = this.roleService.getCurrentRoleCount(id);
+			if (total > 0) {
+				return CDResult.fail("有用户是该角色，无法删除");
+			} else {
+				this.roleService.deleteRole(id);
+				return CDResult.success();
+			}
+		} catch (Exception e) {
+			return CDResult.fail("删除失败");
+		}
+	}
 }

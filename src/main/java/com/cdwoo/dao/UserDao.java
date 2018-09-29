@@ -20,5 +20,8 @@ public interface UserDao {
 	void addUser(User user);
 
 	void editUser(User user);
+	User getUserByUserName(@Param("userName")String userName);
+
+	void deleteUser(@Param("id")String id);
 
 }

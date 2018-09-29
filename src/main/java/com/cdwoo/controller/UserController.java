@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -44,6 +45,10 @@ public class UserController {
 	@RequestMapping("addUser")
 	public CDResult addUser(User user) {
 		try {
+			if (this.userService.getUserByUserName(user.getRealName()) != null) {
+				return CDResult.fail("该用户名已经存在");
+			}
+			user.setPassword(DigestUtils.md5DigestAsHex(user.getPassword().getBytes()));
 			this.userService.addUser(user);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -60,6 +65,18 @@ public class UserController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return CDResult.fail("编辑失败");
+		}
+		return CDResult.success();
+	}
+	
+	@ResponseBody
+	@RequestMapping("deleteUser")
+	public CDResult deleteUser(@RequestParam("id")String id) {
+		try {
+			this.userService.deleteUser(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return CDResult.fail("删除失败");
 		}
 		return CDResult.success();
 	}

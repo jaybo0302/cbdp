@@ -18,4 +18,8 @@ public interface RoleService {
 	void editRole(Role role);
 
 	List<Map<String, Object>> getRole();
+
+	long getCurrentRoleCount(String id);
+
+	void deleteRole(String id);
 }
