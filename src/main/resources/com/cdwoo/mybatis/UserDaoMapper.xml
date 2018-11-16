@@ -21,7 +21,7 @@
     <update id="editUser">
         update c_user set userName=#{userName},realName=#{realName},email=#{email},password=#{password},roleId = ${roleId} where id = ${id}
     </update>
-    <select id="getUserByUserName" resultType="com.csic.entity.User">
+    <select id="getUserByUserName" resultType="com.cdwoo.entity.User">
         select *,date_format(createTime, '%Y-%m-%d %H:%i:%s') createTimeStr from c_user where userName = #{userName};
     </select>
         

@@ -241,6 +241,4 @@ public class CommonUtil {
     }
     return rows.subList(start, end);
   }
-  
-  
 }

@@ -61,6 +61,9 @@ public class UserController {
 	@RequestMapping("editUser")
 	public CDResult editUser(User user) {
 		try {
+			if (user.getPassword() != null && !"".equals(user.getPassword())) {
+				user.setPassword(DigestUtils.md5DigestAsHex(user.getPassword().getBytes()));
+			}
 			this.userService.editUser(user);
 		} catch (Exception e) {
 			e.printStackTrace();
