@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.cdwoo.common.CDPage;
 import com.cdwoo.common.CDParam;
 import com.cdwoo.common.CDResult;
+import com.cdwoo.common.Constants;
 import com.cdwoo.entity.Role;
 import com.cdwoo.service.RoleService;
 
@@ -26,8 +27,11 @@ public class RoleController {
 	
 	@ResponseBody
 	@RequestMapping("queryRoleByPage")
-	public CDPage queryRoleByPage(CDParam param) {
-		return this.roleService.queryRoleByPage(param);
+	public CDResult queryRoleByPage(CDParam param, HttpServletRequest req) {
+		if (req.getSession().getAttribute(Constants.USER_CONTEXT) == null) {
+			return CDResult.fail("login time out");
+		}
+		return CDResult.success(this.roleService.queryRoleByPage(param));
 	}
 	
 	@ResponseBody

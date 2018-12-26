@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.cdwoo.common.CDPage;
 import com.cdwoo.common.CDParam;
 import com.cdwoo.common.CDResult;
+import com.cdwoo.common.Constants;
 import com.cdwoo.entity.User;
 import com.cdwoo.service.UserService;
 
@@ -30,8 +31,11 @@ public class UserController {
 	
 	@ResponseBody
 	@RequestMapping("queryUserByPage")
-	public CDPage queryUserByPage(CDParam param) {
-		return this.userService.queryUserByPage(param);
+	public CDResult queryUserByPage(CDParam param, HttpServletRequest req) {
+		if (req.getSession().getAttribute(Constants.USER_CONTEXT) == null) {
+			return CDResult.fail("login time out");
+		}
+		return CDResult.success(this.userService.queryUserByPage(param));
 	}
 	
 	@RequestMapping("getEditPage")

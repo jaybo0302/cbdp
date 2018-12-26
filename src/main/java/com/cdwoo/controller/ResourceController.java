@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cdwoo.common.CDResult;
+import com.cdwoo.common.Constants;
 import com.cdwoo.entity.Resource;
 import com.cdwoo.service.ResourceService;
 
@@ -30,8 +31,10 @@ public class ResourceController {
 	private ResourceService resourceService;
 	@ResponseBody
 	@RequestMapping("getResources")
-	public Object getResources() {
-		
+	public Object getResources(HttpServletRequest req) {
+		if (req.getSession().getAttribute(Constants.USER_CONTEXT) == null) {
+			return null;
+		}
         return resourceService.getResources();
 	}
 	
