@@ -71,9 +71,11 @@ public class CommonController {
 		}
 		
 		Role r = this.roleService.getRoleById(String.valueOf(dbUser.getRoleId()));
-		String rIds = r.getrIds().substring(0, r.getrIds().length() - 1);
-		List<Map<String, Object>> list = this.resourceService.getResourcesByRole(rIds);
-		req.setAttribute("rs", list);
+		 if (r.getrIds().indexOf(",") != -1) {
+         	String rIds = r.getrIds().substring(0, r.getrIds().length() - 1);
+     		List<Map<String, Object>> list = this.resourceService.getResourcesByRole(rIds);
+     		req.setAttribute("rs", list);
+         }
         return "jsp/index";
 	}
 }

@@ -12,9 +12,17 @@ public class CDParam {
 	private int pageSize;
 	private int roleId;
 	private int companyId;
+	private int userId;
 	private String startDate;
 	private String endDate;
 	
+	
+	public int getUserId() {
+		return userId;
+	}
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
 	public String getStartDate() {
 		return startDate;
 	}
